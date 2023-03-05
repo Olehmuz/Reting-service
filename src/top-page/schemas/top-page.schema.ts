@@ -48,7 +48,7 @@ export class TopPage {
 	@Prop()
 	productCategory: string;
 
-	@Prop()
+	@Prop(TopPageCareers)
 	careers?: TopPageCareers;
 
 	@Prop([TopPageAdvantages])
