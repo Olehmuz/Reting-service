@@ -5,8 +5,8 @@ import { AppModule } from '../src/app.module';
 import { disconnect, Types } from 'mongoose';
 import { REVIEW_NOT_FOUND } from '../src/review/review.const';
 
-const productId = new Types.ObjectId(1);
-const notFoundProductId = new Types.ObjectId(2);
+const productId = new Types.ObjectId(1).toHexString();
+const notFoundProductId = new Types.ObjectId(2).toHexString();
 const testDTO = {
 	name: 'Iphone',
 	title: 'Iphone 11',

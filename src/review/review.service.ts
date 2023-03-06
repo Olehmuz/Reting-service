@@ -16,10 +16,14 @@ export class ReviewService {
 	}
 
 	async findProductById(productId: string): Promise<ReviewDocument[]> {
-		return this.reviewModel.find({ productId }).exec();
+		return this.reviewModel
+			.find({ productId: new Types.ObjectId(productId).toHexString() })
+			.exec();
 	}
 
 	async deleteByProductId(productId: string): Promise<{ deletedCount: number }> {
-		return this.reviewModel.deleteMany({ productId: new Types.ObjectId(productId) }).exec();
+		return this.reviewModel
+			.deleteMany({ productId: new Types.ObjectId(productId).toHexString() })
+			.exec();
 	}
 }
