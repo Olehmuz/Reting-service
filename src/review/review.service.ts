@@ -6,7 +6,10 @@ import { Review, ReviewDocument } from './schemas/review.schema';
 
 @Injectable()
 export class ReviewService {
-	constructor(@InjectModel(Review.name) private readonly reviewModel: Model<ReviewDocument>) {}
+	constructor(
+		@InjectModel(Review.name)
+		private readonly reviewModel: Model<ReviewDocument>,
+	) {}
 	async create(dto: CreateReviewDto): Promise<ReviewDocument> {
 		return this.reviewModel.create(dto);
 	}
@@ -23,7 +26,9 @@ export class ReviewService {
 
 	async deleteByProductId(productId: string): Promise<{ deletedCount: number }> {
 		return this.reviewModel
-			.deleteMany({ productId: new Types.ObjectId(productId).toHexString() })
+			.deleteMany({
+				productId: new Types.ObjectId(productId).toHexString(),
+			})
 			.exec();
 	}
 }

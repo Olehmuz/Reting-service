@@ -19,12 +19,15 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Post('login')
-	async login(@Body() dto: AuthDto): Promise<void> {}
+	async login(@Body() dto: AuthDto): Promise<{ accessToken: string }> {
+		const { email } = await this.authService.validateUser(dto);
+		return await this.authService.login(email);
+	}
 
 	@UsePipes(new ValidationPipe())
 	@Post('registy')
 	async registry(@Body() dto: AuthDto): Promise<UserDocument> {
-		const user = await this.authService.findByEmail(dto.email);
+		const user = await this.authService.findByEmail(dto.login);
 		if (user) {
 			throw new BadRequestException(ALREADY_EXIST_USER);
 		}
