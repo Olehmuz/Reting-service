@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
-import { ALREADY_EXIST_USER } from './auth.const';
+import { WRONG_LOGIN } from './auth.const';
 import { UserDocument } from './schemas/auth.schema';
 
 @Controller('auth')
@@ -29,7 +29,7 @@ export class AuthController {
 	async registry(@Body() dto: AuthDto): Promise<UserDocument> {
 		const user = await this.authService.findByEmail(dto.login);
 		if (user) {
-			throw new BadRequestException(ALREADY_EXIST_USER);
+			throw new BadRequestException(WRONG_LOGIN);
 		}
 		return await this.authService.createUser(dto);
 	}
