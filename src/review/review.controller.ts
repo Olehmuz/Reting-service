@@ -16,8 +16,8 @@ import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { REVIEW_NOT_FOUND } from './review.const';
 import { ReviewDocument } from './schemas/review.schema';
-import { JwtGuard } from 'src/auth/guards/jwt.guard';
-import { GetUserEmail } from 'src/decorators/userEmail.decorator';
+import { JwtGuard } from './../auth/guards/jwt.guard';
+import { GetUserEmail } from './../decorators/userEmail.decorator';
 @Controller('review')
 export class ReviewController {
 	constructor(private readonly reviewService: ReviewService) {}
@@ -38,13 +38,8 @@ export class ReviewController {
 		return deletedProduct;
 	}
 
-	@UseGuards(JwtGuard)
 	@Get('byProduct/:productId')
-	async getByProduct(
-		@Param('productId') productId: string,
-		@GetUserEmail() email: string,
-	): Promise<ReviewDocument[]> {
-		console.log(email);
+	async getByProduct(@Param('productId') productId: string): Promise<ReviewDocument[]> {
 		return this.reviewService.findProductById(productId);
 	}
 }
